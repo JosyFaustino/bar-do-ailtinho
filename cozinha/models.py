@@ -22,7 +22,7 @@ class Product:
     def __str__(self):
         return self.name
 
-class table:
+class Table:
     number = models.IntegerField(verbose_name='Número da mesa')
     seaters = models.IntegerField(verbose_name='Número de assentos')
     details = models.CharField(verbose_name='Detalhes da mesa')
