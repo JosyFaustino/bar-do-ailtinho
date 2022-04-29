@@ -7,6 +7,9 @@ urlpatterns = [
     # Uma rota é um caminho para uma página que você acesssa através de uma URL
     # Rotas para acessar funções dos produtos
     path('produtos', views.ProductListView.as_view(), name='products'),      # Listar produto
+    path('produtos/comidas', views.ComidasListView.as_view(), name='products-com'),      # Listar produto
+    path('produtos/bebidas', views.BebidasListView.as_view(), name='products-beb'),      # Listar produto
+    path('produtos/sobremesas', views.SobremesasListView.as_view(), name='products-sob'),      # Listar produto
     path('produtos/criar', views.ProductCreateView.as_view(), name='product-add'),       # Criar produto
     path('produtos/editar/<int:pk>', views.ProductUpdateView.as_view(), name='product-edit'),        # Editar produto
     # path('produtos/deletar/<int:pk>', views.ProductDeleteView.as_view(), name='product-delete'),     # Deletar produto

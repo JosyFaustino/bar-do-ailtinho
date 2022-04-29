@@ -43,19 +43,16 @@
                 </div>
                 <hr>
                 <ul class="product-container row justify-content-around">
-                    {% for product in object_list %}
-                    <li class="col-md-10">
-                        <img class="img-fluid" src="{{ product.image.url }}" alt="imagem" class="img-responsive">
-                        <p>{{product.name}}</p>
-                        <p>{{wproduct.value}}</p>
-                        <hr />
-                        <strong>{{product.description}}</strong>
-                        <a href="{% url 'cozinha:product-disable' product.pk %}"><i
-                                class="fa-solid fa-trash-can"></i></a>
+                    <li class="col-md-10 text-center">
+                        <a href="{% url 'cozinha:products-com' %}"><h1>Comidas</h1></a>
                     </li>
-                    {% endfor %}
+                    <li class="col-md-10 text-center">
+                        <a href="{% url 'cozinha:products-beb' %}"><h1>Bebidas</h1></a>
+                    </li>
+                    <li class="col-md-10 text-center">
+                        <a href="{% url 'cozinha:products-sob' %}"><h1>Sobremesas</h1></a>
+                    </li>
                 </ul>
-
                 <hr>
                 {# Paginação #}
                 <nav class="pagination navigation">
