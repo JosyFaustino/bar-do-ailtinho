@@ -13,11 +13,6 @@ class ProductListView(ListView):
     template_name = 'cozinha/products/list_view.html'
     paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # products = Product.objects.filter(is_active=True)
-        return context
-
     def get_queryset(self):
         queryset = Product.objects.filter(is_active=True).order_by('name')
         return queryset
