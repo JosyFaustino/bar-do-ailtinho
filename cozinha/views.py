@@ -15,13 +15,71 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products = Product.objects.filter(is_active=True)
+        # products = Product.objects.filter(is_active=True)
         return context
 
     def get_queryset(self):
         queryset = Product.objects.filter(is_active=True).order_by('name')
         return queryset
-        
+        return queryset
+
+
+class ComidasListView(ListView):
+    """
+        View para a listagem de produtos existentes.
+    """
+
+    model = Product
+    template_name = 'cozinha/products/list_view/list_comidas.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.filter(is_active=True, type=1)
+        return context
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_active=True).order_by('name')
+        return queryset
+
+    
+class BebidasListView(ListView):
+    """
+        View para a listagem de produtos existentes.
+    """
+
+    model = Product
+    template_name = 'cozinha/products/list_view/list_bebidas.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.filter(is_active=True, type=2)
+        return context
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_active=True).order_by('name')
+
+
+class SobremesasListView(ListView):
+    """
+        View para a listagem de produtos existentes.
+    """
+
+    model = Product
+    template_name = 'cozinha/products/list_view/list_sobremesas.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.filter(is_active=True, type=3)
+        return context
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_active=True).order_by('name')
+        return queryset
+
+
 class ProductUpdateView(UpdateView):
     """
         View para alteração das informações de um produto existente.
