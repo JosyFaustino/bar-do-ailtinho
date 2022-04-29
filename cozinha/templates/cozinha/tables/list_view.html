@@ -1,1 +1,91 @@
 {% extends 'base.html' %}
+
+
+{% block title %}{{ request.site.name }} {% endblock %}
+
+{% block titlebody %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class=" col-md-10">
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Mesas</h3>
+            <a class="btn btn-sm btn-outline-primary" href="{% url 'cozinha:table-add' %}" style="float: right;"><i class="fas fa-user-plus"></i>Criar novo produto</a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="row">
+                <div>
+                    <form method="GET">
+                        <div class="row justify-content-around">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Pesquisar" name='text'
+                                    id="text-search" aria-label="Username" aria-describedby="basic-addon1"
+                                    value="{{ request.GET.text }}">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="checkbox" name="finished" id="finished" {% if 'finished' in request.GET %}
+                                    checked {% endif %}>
+                                <label for="finished">Desativados</label>
+                                <br>
+                            </div>
+                            <button class="btn-sm btn-primary col-md-2 float-right" type="submit" name="action">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <!-- <div class="table-responsive">
+                <table class="table table-sm table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Indicado por</th>
+                            <th>Cargo anterior</th>
+                            <th>Novo cargo</th>
+                            <th>status da indicação</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in object_list %}
+                        <tr>
+                            <td>{{ product.employee.name }}</td>
+                            <td>{{ product.indicated_by.full_name }}</td>
+                            <td>{{ product.previous_sub_title }}</td>
+                            <td>{{ product.new_sub_title }}</td>
+                            <td>{{ product.get_promotion_status_display }}</td>
+                            <td class="col-2 text-center">
+                                {% if not product.is_finished %}
+                                <a class="btn-sm btn-info m-1" href="{% url 'cozinha:product-edit' product.pk %}">Editar</a>
+                                {% else %}
+                                <a class="btn-sm btn-outline-secondary m-1" href="{% url 'cozinha:product-detail' product.pk %}">Detalhes</a>
+                                {% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> -->
+            <hr>
+            {# Paginação #}
+            <nav class="pagination navigation">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <a class="page-link" href="?page=1">&laquo; Primeira</a>
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    {% endif %}
+                    <span class="page-item">
+                        <li class="page-link" style="text-decoration: none;"> Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</li>
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última página</a>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

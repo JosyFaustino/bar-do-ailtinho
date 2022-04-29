@@ -14,7 +14,7 @@ urlpatterns = [
     path('produtos/desativar/<int:pk>', views.ProductDisableView.as_view(), name='product-disable'),     # Desativar produto
 
     # Rotas para acessar funções das mesas
-    path('mesas', views.ProductListView.as_view(), name='tables'),       # Listar mesa
+    path('mesas', views.TableListView.as_view(), name='tables'),       # Listar mesa
     path('mesas/criar', views.TableCreateView.as_view(), name='table-add'),      # Criar mesa
     path('mesas/editar/<int:pk>', views.TableUpdateView.as_view(), name='table-edit'),       # Editar mesa
     # path('mesas/deletar/<int:pk>', views.TableDeleteView.as_view(), name='table-delete'),        # Deletar mesa

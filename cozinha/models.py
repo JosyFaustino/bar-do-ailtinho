@@ -25,6 +25,7 @@ class Table(models.Model):
     seaters = models.IntegerField(verbose_name='Número de assentos')
     details = models.CharField(verbose_name='Detalhes da mesa', max_length=500)
     is_active = models.BooleanField(verbose_name='Está ativa?', default=True)
+    is_busy = models.BooleanField(verbose_name="Está ocupada?", default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

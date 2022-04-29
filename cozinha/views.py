@@ -43,7 +43,7 @@ class ProductDisableView(DeleteView):
     """
 
     model = Product
-    template_name = 'cozinha/products/delete_view.html'
+    template_name = 'cozinha/products/disable_view.html'
 
     def get_object(self):
         obj = super(ProductDisableView, self).get_object()
@@ -104,7 +104,7 @@ class TableListView(ListView):
     """
 
     model = Table
-    template_name = 'tables/tables/list_view.html'
+    template_name = 'cozinha/tables/list_view.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -122,7 +122,7 @@ class TableUpdateView(UpdateView):
 
     model = Table
     form_class = TableForm
-    template_name = 'tables/tables/update_view.html'
+    template_name = 'cozinha/tables/update_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(TableUpdateView, self).get_form_kwargs()
@@ -136,7 +136,7 @@ class TableDisableView(DeleteView):
     """
 
     model = Table
-    template_name = 'tables/tables/delete_view.html'
+    template_name = 'cozinha/tables/disable_view.html'
 
     def get_object(self):
         obj = super(TableDisableView, self).get_object()
@@ -160,7 +160,7 @@ class TableCreateView(CreateView):
 
     model = Table
     form_class = TableForm
-    template_name = 'tables/tables/create_view.html'
+    template_name = 'cozinha/tables/create_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(TableCreateView, self).get_form_kwargs()
@@ -176,7 +176,7 @@ class TableDetailView(DetailView):
         View para exibir detalhes de uma mesa existente.
     """
     model = Table
-    template_name = 'tables/tables/detail_view.html'
+    template_name = 'cozinha/tables/detail_view.html'
 
     def get_object(self):
         obj = super(TableDetailView, self).get_object()
