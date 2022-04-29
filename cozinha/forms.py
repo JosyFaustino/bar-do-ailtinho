@@ -12,8 +12,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'value', 'description')
-        labels = {'name': 'Nome do produto', 'value': 'Preço', 'description': 'Descrição do produto'}
+        fields = ('image', 'name', 'value', 'description')
+        labels = {'image': 'Imagem do produto', 'name': 'Nome do produto', 'value': 'Preço', 'description': 'Descrição do produto'}
 
     def __init__(self, *args, **kwargs):
         # user = kwargs.pop('user', None)

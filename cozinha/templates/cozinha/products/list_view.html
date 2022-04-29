@@ -36,6 +36,12 @@
                 </div>
             </div>
             <hr>
+            {% for product in object_list %}
+                <div class="flex">
+                    <img src="{{ product.image.url }}" alt="imagem" class="img-responsive" style="width: 100px; margin-right: 10px;">
+                    <a href=""></a>
+                </div>
+            {% endfor %}
             <!-- <div class="table-responsive">
                 <table class="table table-sm table-striped table-bordered">
                     <thead>

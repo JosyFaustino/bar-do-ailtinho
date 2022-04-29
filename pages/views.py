@@ -17,7 +17,8 @@ class HomePageView(CreateView):
         return kwargs
 
     def form_valid(self, form):
-        # form
+        form.instance.is_busy = True
+        form.instance.save()
         return super().form_valid(form)
 
     def get_success_url(self):

@@ -12,6 +12,7 @@ class Product(models.Model):
     name = models.CharField(verbose_name='Nome do produto', max_length=100)
     type = models.IntegerField(verbose_name='Tipo do produto', choices=CHOICES_TYPES, default=1)
     value = models.CharField(verbose_name='Valor do produto', max_length=8)
+    image = models.ImageField(verbose_name='Imagem do produto', upload_to='images/')
     description = models.CharField(verbose_name='Descrição do produto', max_length=500)
     is_active = models.BooleanField(verbose_name='Está ativo?', default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -30,4 +31,4 @@ class Table(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return self.number
+        return str(self.number)

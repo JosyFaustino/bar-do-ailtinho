@@ -8,8 +8,8 @@ from cozinha.models import Table
 class SessionForm(forms.ModelForm):
     class Meta:
         model = Session
-        fields = ('client_name', 'table')
-        labels = {'client_name': 'Nome do cliente', 'table':"Número da mesa"}
+        fields = ('client_name', 'table',)
+        labels = {'client_name': 'Nome do cliente', 'table':'Número da mesa'}
 
     def __init__(self, *args, **kwargs):
         # user = kwargs.pop('user', None)
