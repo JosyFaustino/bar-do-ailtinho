@@ -1,7 +1,8 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, CreateView, UpdateView, DetailView, DeleteView
-from cozinha.models import Product, Table
+from .models import Product, Table
+from .forms import ProductForm, TableForm
 from django.urls import reverse
 class ProductListView(ListView):
     """
@@ -9,7 +10,7 @@ class ProductListView(ListView):
     """
 
     model = Product
-    template_name = 'products/list_view.html'
+    template_name = 'cozinha/products/list_view.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -18,34 +19,34 @@ class ProductListView(ListView):
         return context
 
     def get_queryset(self):
-        user_org = self.request.user.selected_organization
         queryset = Product.objects.filter(is_active=True).order_by('name')
         return queryset
+        
 class ProductUpdateView(UpdateView):
     """
         View para alteração das informações de um produto existente.
     """
 
     model = Product
-    # form_class = ProductForm
-    template_name = 'products/update_view.html'
+    form_class = ProductForm
+    template_name = 'cozinha/products/update_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(ProductUpdateView, self).get_form_kwargs()
         return kwargs
 
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")
-class ProductDeleteView(DeleteView):
+    def get_success_url(self):
+        return reverse("cozinha:products")
+class ProductDisableView(DeleteView):
     """
         View para deletar um produto existente.
     """
 
     model = Product
-    template_name = 'products/delete_view.html'
+    template_name = 'cozinha/products/delete_view.html'
 
     def get_object(self):
-        obj = super(ProductDeleteView, self).get_object()
+        obj = super(ProductDisableView, self).get_object()
         if not obj.is_active:
             raise Http404
         return obj
@@ -56,8 +57,8 @@ class ProductDeleteView(DeleteView):
         self.object.save()
         return redirect(self.get_success_url())
 
-    # def get_success_url(self):
-    #     # return reverse("hr:sectors")
+    def get_success_url(self):
+        return reverse("cozinha:products")
 
 class ProductCreateView(CreateView):
     """
@@ -65,8 +66,8 @@ class ProductCreateView(CreateView):
     """
 
     model = Product
-    # form_class = ProductForm
-    template_name = 'products/create_view.html'
+    form_class = ProductForm
+    template_name = 'cozinha/products/create_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(ProductCreateView, self).get_form_kwargs()
@@ -78,39 +79,24 @@ class ProductCreateView(CreateView):
         # form.instance.organization = self.request.user.selected_organization
         return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")
+    def get_success_url(self):
+        return reverse("cozinha:products")
+
 class ProductDetailView(DetailView):
     """
         View para exibir detalhes de um produto existente.
     """
     model = Product
-    template_name = 'products/detail_view.html'
+    template_name = 'cozinha/products/detail_view.html'
 
     def get_object(self):
         obj = super(ProductDetailView, self).get_object()
-        if not obj.is_finished or not obj.employee.owner == self.request.user.selected_organization:
+        if not obj.is_active:
             raise Http404
         return obj
 
     def get_success_url(self):
-        return reverse("")
-
-class ProductDisableView(UpdateView):
-    """
-        View para desativar um produto existente.
-    """
-
-    model = Product
-    template_name = 'product/disable_view.html'
-
-    def get_form_kwargs(self):
-        kwargs = super(ProductUpdateView, self).get_form_kwargs()
-        return kwargs
-
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")
-
+        return reverse("cozinha:products")
 
 class TableListView(ListView):
     """
@@ -118,7 +104,7 @@ class TableListView(ListView):
     """
 
     model = Table
-    template_name = 'tables/list_view.html'
+    template_name = 'tables/tables/list_view.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -127,7 +113,6 @@ class TableListView(ListView):
         return context
 
     def get_queryset(self):
-        user_org = self.request.user.selected_organization
         queryset = Table.objects.filter(is_active=True).order_by('number')
         return queryset
 class TableUpdateView(UpdateView):
@@ -136,25 +121,25 @@ class TableUpdateView(UpdateView):
     """
 
     model = Table
-    # form_class = TableForm
-    template_name = 'tables/update_view.html'
+    form_class = TableForm
+    template_name = 'tables/tables/update_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(TableUpdateView, self).get_form_kwargs()
         return kwargs
 
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")
-class TableDeleteView(DeleteView):
+    def get_success_url(self):
+        return reverse("cozinha:tables")
+class TableDisableView(DeleteView):
     """
         View para deletar uma mesa existente.
     """
 
     model = Table
-    template_name = 'tables/delete_view.html'
+    template_name = 'tables/tables/delete_view.html'
 
     def get_object(self):
-        obj = super(TableDeleteView, self).get_object()
+        obj = super(TableDisableView, self).get_object()
         if not obj.is_active:
             raise Http404
         return obj
@@ -165,8 +150,8 @@ class TableDeleteView(DeleteView):
         self.object.save()
         return redirect(self.get_success_url())
 
-    # def get_success_url(self):
-    #     # return reverse("hr:sectors")
+    def get_success_url(self):
+        return reverse("cozinha:tables")
 
 class TableCreateView(CreateView):
     """
@@ -174,48 +159,31 @@ class TableCreateView(CreateView):
     """
 
     model = Table
-    # form_class = TableForm
-    template_name = 'tables/create_view.html'
+    form_class = TableForm
+    template_name = 'tables/tables/create_view.html'
 
     def get_form_kwargs(self):
         kwargs = super(TableCreateView, self).get_form_kwargs()
-        # org_obj = self.request.user.selected_organization
-        # kwargs['org_obj'] = org_obj
         return kwargs
 
     def form_valid(self, form):
-        # form.instance.organization = self.request.user.selected_organization
         return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")
+    def get_success_url(self):
+        return reverse("cozinha:tables")
 class TableDetailView(DetailView):
     """
         View para exibir detalhes de uma mesa existente.
     """
     model = Table
-    template_name = 'tables/detail_view.html'
+    template_name = 'tables/tables/detail_view.html'
 
     def get_object(self):
         obj = super(TableDetailView, self).get_object()
-        if not obj.is_finished or not obj.employee.owner == self.request.user.selected_organization:
+        if not obj.is_active:
             raise Http404
         return obj
 
     def get_success_url(self):
-        return reverse("")
+        return reverse("cozinha:tables")
 
-class TableDisableView(UpdateView):
-    """
-        View para desativar um produto existente.
-    """
-
-    model = Table
-    template_name = 'table/disable_view.html'
-
-    def get_form_kwargs(self):
-        kwargs = super(TableUpdateView, self).get_form_kwargs()
-        return kwargs
-
-    # def get_success_url(self):
-    #     return reverse("hr:sectors")

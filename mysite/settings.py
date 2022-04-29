@@ -14,6 +14,7 @@ from pathlib import Path
 from telnetlib import AUTHENTICATION
 
 import os
+from os.path import join, abspath, dirname
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'django.contrib.staticfiles',
 
     # Apps internos
     'clientes',
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
