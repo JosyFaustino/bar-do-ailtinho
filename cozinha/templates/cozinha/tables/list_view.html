@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block title %}{{ request.site.name }} {% endblock %}
 
 {% block titlebody %}{% endblock %}
+
+{% block extrahead %} 
+    <link rel="stylesheet" href="{% static 'css/list_products.css' %}">
+{% endblock %}
+
 
 {% block content %}
 <div class="row justify-content-center">
@@ -36,7 +42,19 @@
                 </div>
             </div>
             <hr>
-
+            <ul class="product-container row justify-content-around">
+                {% for table in object_list %}
+                <li class="col-md-10">
+                    <img class="img-fluid" src="{{ table.image.url }}" alt="imagem" class="img-responsive">
+                    <p>{{table.name}}</p>
+                    <p>{{table.value}}</p>
+                    <hr />
+                    <strong>{{table.description}}</strong>
+                    <a href="{% url 'cozinha:table-disable' table.pk %}"><i
+                            class="fa-solid fa-trash-can"></i></a>
+                </li>
+                {% endfor %}
+            </ul>
             <hr>
             {# Paginação #}
             <nav class="pagination navigation">
